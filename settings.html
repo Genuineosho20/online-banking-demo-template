@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    .section-header {
+      background-color: #150236;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+     /* Responsive sidebar */
+     @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        z-index: 1050;
+        width: 250px;
+        transform: translateX(-100%);
+      }
+
+      .sidebar.show {
+        transform: translateX(0);
+      }
+    }
+    .sidebar {
+      background-color: #150236;
+      color: #fff;
+      min-height: 100vh;
+      transition: transform 0.3s ease;
+    }
+
+    .butt{
+      background-color: #150236;
+      color: #f5f5f5;
+    }
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .sidebar .nav-link:hover {
+      background-color: rgb(250, 233, 233);
+      color: #140333;
+    }
+    .card {
+      background-color: #f5f5f5;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .logout{
+      margin-left: 15px;
+    }
+     /* Dark Theme */
+     .dark-theme {
+      background-color: #050505;
+      color: #f1f1f1;
+    }
+
+    .dark-theme .sidebar {
+      background-color: #030303;
+    }
+
+    .dark-theme .sidebar .logout .nav-link:hover {
+      background-color: #140333;
+      color: #f8f9fa;
+    }
+
+    .dark-theme .navbar {
+      background-color: #190224 !important;
+    }
+
+    .dark-theme .navbar .navbar-brand,
+    .dark-theme .navbar .nav-link,
+    .dark-theme .navbar .text-white {
+      color: #f1f1f1 !important;
+    }
+
+    .dark-theme .card {
+      background-color: #190224 !important;
+      color: #f1f1f1 !important;
+    }
+    .accordion-button{
+      background-color: #150236;
+      color: #ffffff;
+    }
+    .form-label {
+      font-weight: bold;
+    }
+
+    /* Frosted glass modal style */
+    .modal-title {
+      font-weight: 600;
+    }
+
+    .modal-content {
+      background: rgba(190, 144, 190, 0.15);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(190, 144, 190, 0.15);
+      color: #000;
+    }
+
+    .dark-theme .modal-content {
+      background: rgba(27, 2, 53, 0.2);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+.dark-theme .sidebar {
+      background-color: #000000;
+    }
+.logout{
+  margin-left: 15px !important;
+}
+button {
+      background-color: #120131 !important;
+      border: none !important;
+      color: #fff !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Toggle Button for mobile -->
+  <button class="btn btn-primary m-3 d-md-none" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar p-4 col-md-3 col-lg-2">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="dashboard.html"><i class="fas fa-home me-2"></i>Dashboard</a>
+        </li>
+        <br>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#accountsMenu" role="button" aria-expanded="false">
+            <i class="fas fa-wallet me-2"></i>Accounts
+          </a>
+          <div class="collapse" id="accountsMenu">
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item"><a class="nav-link" href="account.html">Savings</a></li>
+              <li class="nav-item"><a class="nav-link" href="account.html">Current</a></li>
+            </ul>
+          </div>
+        </li>
+        <br>
+        <li class="nav-item">
+          <a class="nav-link" href="loan.html"><i class="fas fa-hand-holding-usd me-2"></i>Loans</a>
+        </li>
+        <br>
+        <li class="nav-item">
+          <a class="nav-link" href="transaction.html"><i class="fas fa-chart-line me-2"></i>Analytics</a>
+        </li>
+        <br>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#supportMenu" role="button" aria-expanded="false">
+            <i class="fas fa-headset me-2"></i>Support
+            <span class="badge bg-danger ms-2">2</span>
+          </a>
+          <div class="collapse" id="supportMenu">
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item"><a class="nav-link" href="#">FAQs</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      <button id="themeSwitcher" class="btn text-light mt-4">
+        <i class="fas fa-moon" id="themeIcon"></i> Switch Theme
+      </button>
+      <br>
+      <br>
+      <!-- Logout -->
+      <div class="logout">
+        <a class="nav-link" class="Logout" href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+
+    <!-- Main Settings Section -->
+    <div class="container my-4">
+      <h3 class="mb-4 section-header">Settings</h3>
+
+      <div class="accordion" id="settingsAccordion">
+        <!-- Profile Settings -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingProfile">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProfile">
+              Profile Update
+            </button>
+          </h2>
+          <div id="collapseProfile" class="accordion-collapse collapse show" data-bs-parent="#settingsAccordion">
+            <div class="accordion-body">
+              <form>
+                <div>
+                 <img src="images/PPP.jpg" width="150px" height="150px" class="rounded-circle" alt="">
+               <br><br>
+                  <input type="file" class="display-block">
+                </div><br>
+                <div class="mb-3">
+                  <label for="name" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="John Doe">
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email Address</label>
+                  <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <input type="text" class="form-control" id="phone" placeholder="+123456789">
+                </div>
+                <button type="submit" class="btn butt">Update Profile</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy Settings -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingPrivacy">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrivacy">
+              Privacy Settings
+            </button>
+          </h2>
+          <div id="collapsePrivacy" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+            <div class="accordion-body">
+              <form>
+                <div class="mb-3">
+                  <label for="currentPassword" id="me" class="form-label">Current Password</label>
+                  <input type="password" class="form-control" id="currentPassword">
+                </div>
+                <div class="mb-3">
+                  <label for="newPassword" class="form-label">New Password</label>
+                  <input type="password" class="form-control" id="newPassword">
+                </div>
+                <div class="mb-3">
+                  <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                  <input type="password" class="form-control" id="confirmPassword">
+                </div>
+                <button type="submit" class="btn butt">Change Password</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Success</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalMessage">
+          Your changes have been saved.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Scripts -->
+  <script>
+     // Sidebar toggle function for mobile view
+     function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('show');
+    }
+  // Theme toggle logic
+  const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.getElementById('themeIcon');
+
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-theme');
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+    }
+
+    const switcher = document.getElementById('themeSwitcher');
+    if (switcher) {
+      switcher.addEventListener('click', function () {
+        document.body.classList.toggle('dark-theme');
+        const newTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+        localStorage.setItem('theme', newTheme);
+
+        // Toggle icon
+        if (document.body.classList.contains('dark-theme')) {
+          themeIcon.classList.remove('fa-moon');
+          themeIcon.classList.add('fa-sun');
+        } else {
+          themeIcon.classList.remove('fa-sun');
+          themeIcon.classList.add('fa-moon');
+        }
+      });
+    }
+    function showModal(title, message) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalMessage').innerText = message;
+      const modal = new bootstrap.Modal(document.getElementById('successModal'));
+      modal.show();
+    }
+
+   
+
+    // Modal triggers for form submissions
+    document.addEventListener('DOMContentLoaded', () => {
+      const profileForm = document.querySelector('#collapseProfile form');
+      const passwordForm = document.querySelector('#collapsePrivacy form');
+
+      if (profileForm) {
+        profileForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          showModal("Profile Updated", "Your profile information has been updated successfully.");
+        });
+      }
+
+      if (passwordForm) {
+        passwordForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          showModal("Password Changed", "Your password has been changed successfully.");
+        });
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

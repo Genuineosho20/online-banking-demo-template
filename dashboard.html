@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --main-purple: #1b0235;
+      --light-bg: #fffeff;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-bg);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .navbar {
+      background-color: rgb(245, 227, 255) !important;
+    }
+
+    .navbar .navbar-brand,
+    .navbar .nav-link,
+    .navbar .text-white {
+      color: rgb(37, 2, 53);
+    }
+
+    .card-purple {
+      background-color: var(--main-purple);
+      color: white;
+      margin: auto !important;
+    }
+
+    .card-shadow {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar {
+      background-color: #150236;
+      color: #fff;
+      min-height: 100vh;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .sidebar .nav-link:hover {
+      background-color: rgb(250, 233, 233);
+      color: #140333;
+    }
+
+    .nav-link {
+      padding: 15px;
+    }
+
+    .navbar-brand {
+      font-size: 20px;
+    }
+
+    .card {
+      background-color: #110229;
+      color: white !important;
+    }
+
+    td {
+      background-color: #110229;
+    }
+
+    .bbb {
+      border: #140333 solid;
+      color: #140333;
+    }
+
+    h5 {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    /* Responsive sidebar */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        z-index: 1050;
+        width: 250px;
+        transform: translateX(-100%);
+      }
+
+      .sidebar.show {
+        transform: translateX(0);
+      }
+    }
+    a{
+      text-decoration: none;
+    }
+    /* Dark Theme */
+    .dark-theme {
+      background-color: #050505;
+      color: #f1f1f1;
+    }
+
+    .dark-theme .sidebar {
+      background-color: #000000;
+    }
+
+    .dark-theme .sidebar .nav-link:hover {
+      background-color: #140333;
+      color: #f8f9fa;
+    }
+
+    .dark-theme .navbar {
+      background-color: #190224 !important;
+    }
+
+    .dark-theme .navbar .navbar-brand,
+    .dark-theme .navbar .nav-link,
+    .dark-theme .navbar .text-white {
+      color: #f1f1f1 !important;
+    }
+
+    .dark-theme .card {
+      background-color: #190224 !important;
+      color: #f1f1f1 !important;
+    }
+
+    .dark-theme td {
+      background-color: #000007 !important;
+      color: #f5f4f5 !important;
+      border-bottom: solid #2f2f36 1px;
+    }
+
+    .dark-theme th {
+      background: #1a0024 !important;
+      color: #f5f4f5;
+      border-bottom: solid #85858a 1px;
+    }
+
+    .dark-theme .table-striped>tbody>tr:nth-of-type(odd) {
+      background-color: #2f2f53 !important;
+    }
+
+    .dark-theme .bbb {
+      background-color: #140333;
+      color: white;
+    }
+
+    .dark-theme #themeSwitcher {
+      color: #f1f1f1;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="fas fa-university me-2"></i>GenPay</a>
+        <div class="d-flex align-items-center">
+          <h2><i class="fas fa-bell"></i><sup><span class="badge bg-danger">2</span></sup></h2> &nbsp; 
+            <span class="me-3 "><strong>Hello, OSHO!</strong></span>
+           <a href="settings.html"> <img src="images/PPP.jpg" width="35" height="35" class="rounded-circle" alt="User" /></a>
+        </div>
+    </div>
+</nav>
+
+  <!-- Mobile Sidebar Toggle -->
+  <button class="btn btn-primary m-3 d-md-none" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar p-3 col-md-3 col-lg-2">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="dashboard.html"><i class="fas fa-home me-2"></i>Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#accountsMenu" role="button" aria-expanded="false">
+            <i class="fas fa-wallet me-2"></i>Accounts
+          </a>
+          <div class="collapse" id="accountsMenu">
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item"><a class="nav-link" href="account.html">Savings</a></li>
+              <li class="nav-item"><a class="nav-link" href="account.html">Current</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="settings.html"><i class="fas fa-cog me-2"></i> Settings</a></li>
+        <li class="nav-item"><a class="nav-link" href="loan.html"><i class="fas fa-hand-holding-usd me-2"></i>Loans</a></li>
+        <li class="nav-item"><a class="nav-link" href="transaction.html"><i class="fas fa-chart-line me-2"></i>Analytics</a></li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#supportMenu" role="button" aria-expanded="false">
+            <i class="fas fa-headset me-2"></i>Support
+            <span class="badge bg-danger ms-2">2</span>
+          </a>
+          <div class="collapse" id="supportMenu">
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item"><a class="nav-link" href="#">FAQs</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Theme Toggle Button -->
+      <button id="themeSwitcher" class="btn text-light mt-4">
+        <i id="themeIcon" class="fas fa-moon"></i> Switch Theme
+      </button>
+
+      <!-- Logout -->
+      <div class="logout mt-4">
+        <a class="nav-link" href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="container my-4">
+      <div><h5>WELCOME OSHO!</h5></div>
+      <div class="row g-4">
+        <div class="col-md-4"><div class="card card-purple card-shadow p-3"><h5>Account Balance</h5><h2>$5,240.00</h2></div></div>
+        <div class="col-md-4"><div class="card card-purple card-shadow p-3"><h5>Loan Status</h5><h2>$12,000 <small class="fs-6">Remaining</small></h2></div></div>
+        <div class="col-md-4"><div class="card card-purple card-shadow p-3"><h5>Spending This Month</h5><h2>$1,560</h2></div></div>
+      </div>
+
+      <div class="row g-4 mt-4">
+        <div class="col-md-4 col-sm-4">
+          <a href="payment.html"><div class="card card-purple card-shadow p-3 w-75 text-center"><h6><i class="fas fa-paper-plane"></i> &nbsp; Transfer Funds</h6></div></a>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <a href="paybills.html"><div class="card card-purple card-shadow p-3 w-50 text-center"><h6><i class="fas fa-credit-card"></i> &nbsp; Pay Bills</h6></div></a>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <a href="request.html">
+          <div class="card card-purple card-shadow p-3 w-75 text-center"><h6><i class="fas fa-hand-holding-usd"></i> &nbsp; Request For Funds</h6></div>
+        </div></a>
+      </div>
+
+      <div class="mt-5 table-responsive">
+        <h4>Recent Transactions</h4>
+        <table class="table table-striped mt-3">
+          <thead class="table-primary">
+            <tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Apr 27</td><td>Electric Bill</td><td>-$85.00</td><td><span class="badge bg-success">Paid</span></td></tr>
+            <tr><td>Apr 25</td><td>ATM Withdrawal</td><td>-$200.00</td><td><span class="badge bg-secondary">Completed</span></td></tr>
+            <tr><td>Apr 23</td><td>Salary</td><td>$2,500.00</td><td><span class="badge bg-primary">Received</span></td></tr>
+            <tr><td>Apr 22</td><td>Groceries</td><td>-$500.00</td><td><span class="badge bg-success">Paid</span></td></tr>
+            <tr><td>Apr 21</td><td>Gift card</td><td>-$250.00</td><td><span class="badge bg-success">Paid</span></td></tr>
+            <tr><td>Apr 20</td><td>Allowance</td><td>$1,500.00</td><td><span class="badge bg-primary">Received</span></td></tr>
+          </tbody>
+        </table>
+        <a href="transaction.html"><button class="btn btn-light bbb">View all</button></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Theme toggle logic
+    const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.getElementById('themeIcon');
+
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-theme');
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+    }
+
+    const switcher = document.getElementById('themeSwitcher');
+    if (switcher) {
+      switcher.addEventListener('click', function () {
+        document.body.classList.toggle('dark-theme');
+        const newTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+        localStorage.setItem('theme', newTheme);
+
+        // Toggle icon
+        if (document.body.classList.contains('dark-theme')) {
+          themeIcon.classList.remove('fa-moon');
+          themeIcon.classList.add('fa-sun');
+        } else {
+          themeIcon.classList.remove('fa-sun');
+          themeIcon.classList.add('fa-moon');
+        }
+      });
+    }
+
+    // Sidebar toggle for mobile
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('show');
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - GenPay</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to right, #150236, #3a049e);
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      background-color: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .login-img {
+      flex: 1;
+      background-image: url('images/sid3.jpg');
+      background-size: cover;
+      background-position: center;
+      display: none;
+      background-repeat: no-repeat;
+    }
+
+    .login-form {
+      flex: 1;
+      padding: 2.5rem;
+    }
+
+    .login-form h3 {
+      color: #150236;
+    }
+
+    .btn-purple {
+      background-color: #16033a;
+      color: #fff;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-purple:hover {
+      background-color: #210446;
+      transform: scale(1.02);
+    }
+
+    .form-control:focus {
+      border-color: #3a049e;
+      box-shadow: 0 0 0 0.2rem rgba(58, 4, 158, 0.25);
+    }
+
+    @media (min-width: 768px) {
+      .login-img {
+        display: block;
+        /* border-right: #150236 solid 1px; */
+        border-radius: 16px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .login-form {
+        padding: 1.5rem;
+      }
+    }
+    .eye{
+      background-color: rgb(221, 238, 252);
+    }
+    .eye:hover{
+      background-color: rgb(221, 238, 252) !important;
+      border: none !important;
+    }
+    .input-group {
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-container">
+    <!-- Side Image -->
+    <div class="login-img">
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-form">
+      <h3 class="mb-4 text-center">Login to GenPay</h3>
+      <form onsubmit="event.preventDefault(); fakeLogin();">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+            <button type="button" class="btn eye" onclick="togglePassword()" tabindex="-1">
+              <i class="fa fa-eye" id="eyeIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="rememberMe">
+          <label class="form-check-label" for="rememberMe">Remember me</label>
+        </div>
+
+        <button type="submit" class="btn btn-purple w-100">Login</button>
+
+        <p class="mt-3 text-center"><a href="settings.html#me" class="text-decoration-none text-secondary">Forgot
+            password?</a></p>
+        <p class="mt-2 text-center">Don't have an account? <a href="signup.html"
+            class="text-decoration-none text-secondary">Sign up here</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function fakeLogin() {
+      window.location.href = "dashboard.html";
+    }
+
+    function togglePassword() {
+      const passwordField = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+      const isPassword = passwordField.type === 'password';
+      passwordField.type = isPassword ? 'text' : 'password';
+      eyeIcon.classList.toggle('fa-eye');
+      eyeIcon.classList.toggle('fa-eye-slash');
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

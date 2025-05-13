@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Make a Payment - GenPay</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --main-purple: #120131;
+      --light-bg: #f8f9fa;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-bg);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .navbar {
+      background-color:  rgb(245, 227, 255) ;
+    }
+
+    .navbar .navbar-brand {
+      color:#120131 !important;
+      font-size: 26px;
+    }
+
+    .logout {
+      margin-left: 15px !important;
+    }
+
+    .container {
+      max-width: 600px;
+    }
+
+    .card {
+      background-color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Modal Fixes for readability */
+    .modal-content {
+      background-color: white;
+      color: #000;
+    }
+
+    .dark-theme .modal-content {
+      background-color: #1b0235;
+      color: #fff;
+    }
+
+    .dark-theme .modal-header,
+    .dark-theme .modal-footer {
+      border-color: #2e0854;
+    }
+    .dark-theme .sidebar {
+      background-color: #000000;
+    }
+    .modal-title {
+      font-weight: 600;
+    }
+
+    /* Frosted glass modal style */
+    .modal-content {
+      background: rgba(190, 144, 190, 0.15);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(190, 144, 190, 0.15);
+      color: #000;
+    }
+
+    .dark-theme .modal-content {
+      background: rgba(27, 2, 53, 0.2);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+
+    .dark-theme {
+      background-color: #020202 !important;
+      color: #eee;
+    }
+
+    .dark-theme .card {
+      background-color: #120131;
+      color: #fff;
+    }
+
+    .dark-theme .form-control {
+      background-color: #120131;
+      color: white;
+      border: 1px solid#120131;
+    }
+
+    .dark-theme input {
+      border: solid white 1px !important;
+    }
+
+    .dark-theme button {
+      background-color: #fafafc !important;
+      border: none !important;
+      color: #120131 !important;
+    }
+
+    .dark-theme button:hover {
+      background-color: #070607 !important;
+      color: #fbfafc !important;
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      color: white;
+    }
+    .dark-theme .navbar {
+            background-color: #120131 !important;
+        }
+
+    button {
+      background-color: #120131 !important;
+      border: none !important;
+      color: #fff !important;
+    }
+
+    /* Responsive sidebar */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        z-index: 1050;
+        width: 250px;
+        transform: translateX(-100%);
+      }
+
+      .sidebar.show {
+        transform: translateX(0);
+      }
+    }
+
+    .sidebar {
+      background-color: #120131;
+      color: #fff;
+      min-height: 100vh;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .sidebar .nav-link:hover {
+      background-color: rgb(250, 233, 233);
+      color: #120131;
+    }
+  .dark-theme .brr{
+    background-color: #000000 !important;
+    color: #eee !important;
+    }
+    .dark-theme .navbar .navbar-brand{
+      color: #fff !important;
+      background-color: #120131 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar px-3">
+    <a class="navbar-brand" href="dashboard.html"><i class="fas fa-university me-2"></i>GenPay</a>
+    <span class="ms-auto theme-toggle" onclick="toggleTheme()">
+      <i class="fas fa-moon"></i>
+    </span>
+  </nav>
+  <!-- Mobile Sidebar Toggle -->
+  <button class="btn btn-primary m-3 d-md-none" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar p-3 col-md-3 col-lg-2">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="dashboard.html"><i class="fas fa-home me-2"></i>Dashboard</a>
+        </li><br>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#accountsMenu" role="button" aria-expanded="false">
+            <i class="fas fa-wallet me-2"></i>Accounts
+          </a>
+          <div class="collapse" id="accountsMenu">
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item"><a class="nav-link" href="account.html">Savings</a></li>
+              <li class="nav-item"><a class="nav-link" href="account.html">Current</a></li>
+            </ul>
+          </div>
+        </li><br>
+        <li class="nav-item"><a class="nav-link" href="settings.html"><i class="fas fa-cog me-2"></i> Settings</a></li><br>
+        <li class="nav-item"><a class="nav-link" href="loan.html"><i class="fas fa-hand-holding-usd me-2"></i>Loans</a></li><br>
+        <li class="nav-item"><a class="nav-link" href="transaction.html"><i
+              class="fas fa-chart-line me-2"></i>Analytics</a></li><br>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#supportMenu" role="button" aria-expanded="false">
+            <i class="fas fa-headset me-2"></i>Support
+            <span class="badge bg-danger ms-2">2</span>
+          </a>
+          <div class="collapse" id="supportMenu">
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item"><a class="nav-link" href="#">FAQs</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Theme Toggle Button -->
+      <button id="themeSwitcher" class="btn brr text-light mt-4" onclick="toggleTheme()">
+        <i id="themeIcon" class="fas fa-moon"></i> Switch Theme
+      </button>
+
+      <!-- Logout -->
+      <div class="logout mt-4">
+        <a class="nav-link" href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+    <!-- request Form -->
+    <div class="container my-5">
+      <div class="card p-4">
+        <h4 class="mb-4">Make a Funds Request</h4>
+        <form>
+          <div class="mb-3">
+            <label for="recipient" class="form-label">Recipient</label>
+            <input type="text" class="form-control" id="recipient" placeholder="email or name" required>
+          </div>
+          <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" class="form-control" id="amount" placeholder="$0.00">
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" placeholder="Optional note">
+          </div>
+          <button type="button" class="btn btn-primary w-100" onclick="openConfirmation()">Send Request</button>
+        </form>
+
+      </div><br>
+      <a href="dashboard.html"><button class="btn btn-light bbb">Go to dashboard</button></a>
+    </div>
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmModalLabel">Confirm Funds Request</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Recipient:</strong> <span id="modalRecipient"></span></p>
+            <p><strong>Amount:</strong> $<span id="modalAmount"></span></p>
+            <p><strong>Description:</strong> <span id="modalDescription"></span></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Edit</button>
+            <button type="button" class="btn btn-primary" id="continuePayment">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Request Successful</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Your Request has been successfully processed!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="resetForm()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Apply theme from localStorage
+      const body = document.body;
+      if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-theme');
+      }
+
+      function toggleTheme() {
+        body.classList.toggle('dark-theme');
+        localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
+      }
+
+      function openConfirmation() {
+        const recipient = document.getElementById('recipient').value;
+        const amount = document.getElementById('amount').value;
+        const description = document.getElementById('description').value;
+
+        document.getElementById('modalRecipient').textContent = recipient || 'N/A';
+        document.getElementById('modalAmount').textContent = amount || '0.00';
+        document.getElementById('modalDescription').textContent = description || 'None';
+
+        const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        confirmModal.show();
+      }
+      // Continue button logic (example)
+      document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('continuePayment').addEventListener('click', function () {
+          // Hide the confirmation modal
+          const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+          confirmModal.hide();
+
+          // Show success modal
+          const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+          successModal.show();
+        });
+      });
+
+      // Reset form and close success modal
+      function resetForm() {
+        document.querySelector('form').reset();
+        const successModal = bootstrap.Modal.getInstance(document.getElementById('successModal'));
+        successModal.hide();
+      }
+      // Sidebar toggle for mobile
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('show');
+      }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
